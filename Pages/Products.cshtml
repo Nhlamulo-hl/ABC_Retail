@@ -1,0 +1,127 @@
+﻿@page
+@model ABC_Retail.Pages.ProductsModel
+@{
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+<style>
+    /* Simple CSS styles for the page */
+    body {
+    font-family: Arial, sans-serif;
+    }
+
+
+    .product-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    }
+
+    .product-list li {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    }
+
+    .product-list li:last-child {
+    border-bottom: none;
+    }
+
+    table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    }
+
+    th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+    }
+    </style>
+</head>
+<body style="background-color: #fbc0c0;">
+
+    <div style="background: linear-gradient(to bottom, #f41f4e, #fb5490, #fbc0c0); color: white; padding: 20px; border-radius: 10px; margin: 50px auto; width: 300px; text-align: center;">
+        <h2 style="color: white;">Products</h2>
+        <form onsubmit="showAlert(event)" action="/MyWork" method="get">
+            <label for="Category" style="color: white;">Category:</label>
+            <input type="text" id="Category" name="Category" required style="width: 100%; padding: 10px; margin-bottom: 10px; border: 2px solid #fbc0c0; border-radius: 5px;"><br><br>
+
+            <label for="productName" style="color: white;">Product Name:</label>
+            <input type="text" id="productName" name="productName" required style="width: 100%; padding: 10px; margin-bottom: 10px; border: 2px solid #fbc0c0; border-radius: 5px;"><br><br>
+
+            <label for="price" style="color: white;">Price:</label>
+            <input type="text" id="price" name="price" required style="width: 100%; padding: 10px; margin-bottom: 10px; border: 2px solid #fbc0c0; border-radius: 5px;"><br><br>
+
+            <input type="submit" id="btn" value="Add" style="background-color: #fb5490; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">
+        </form>
+    </div>
+    <h2>Stored Products:</h2>
+    <br />
+    <br />
+
+    <div id="productsTableContainer">
+        <table id="productsTable">
+            <thead>
+                <tr>
+                    <th>Category </th>
+                    <th>Product Name</th>
+                    <th>Price</th>
+                   
+                </tr>
+            </thead>
+            <tbody id="productsList">
+
+            </tbody>
+        </table>
+    </div>
+
+
+    <script>
+        // Get the form elements
+        const CategoryInput = document.getElementById('Category');
+        const ProductNameInput = document.getElementById('productName');
+        const PriceInput = document.getElementById('price');
+        const createProductsButton = document.getElementById('btn');
+        const productsTableBody = document.getElementById('productsList');
+
+        // Create a new profile when the button is clicked
+        createProductsButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            const Category = CategoryInput.value;
+            const productName = ProductNameInput.value;
+            const price = PriceInput.value;
+            
+
+            // Create a new table row for the profile
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                                    <td>${Category}</td>
+                                    <td>${productName}</td>
+                                    <td>${price}</td>
+                                   
+                                `;
+            productsTableBody.appendChild(newRow);
+
+            // Clear the form inputs
+            CategoryInput.value = '';
+            ProductNameInput.value = '';
+            PriceInput.valuee = '';
+           
+        });
+
+        function showAlert(event) {
+            event.preventDefault(); // Prevent the form from submitting immediately
+            alert('Customer added successfully!'); // Show the popup message
+            event.target.submit(); // Submit the form after showing the alert
+        }
+
+    </script>
+</body>
+
+</html>

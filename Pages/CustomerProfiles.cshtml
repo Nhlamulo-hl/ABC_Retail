@@ -1,0 +1,132 @@
+﻿@page
+@model ABC_Retail.Pages.CustomerProfilesModel
+@{
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer</title>
+    <style>
+
+
+        /* Simple CSS styles for the page */
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+
+        .profile-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+            .profile-list li {
+                padding: 10px;
+                border-bottom: 1px solid #ccc;
+            }
+
+                .profile-list li:last-child {
+                    border-bottom: none;
+                }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body style="background-color: #ffc2c7;">
+    
+    <div style="background: linear-gradient(to bottom, #f41f4e, #fb5490, #fbc0c0); color: white; padding: 20px; border-radius: 10px; margin: 50px auto; width: 300px; text-align: center;">
+        <form onsubmit="showAlert(event)" action="/MyWork" method="get">
+            <label for="firstName" style="color: white;">First Name:</label>
+            <input type="text" id="firstName" name="firstName" required style="width: 100%; padding: 10px; margin-bottom: 10px; border: 2px solid #f41f4e; border-radius: 5px;"><br><br>
+
+            <label for="lastName" style="color: white;">Last Name:</label>
+            <input type="text" id="lastName" name="lastName" required style="width: 100%; padding: 10px; margin-bottom: 10px; border: 2px solid #f41f4e; border-radius: 5px;"><br><br>
+
+            <label for="email" style="color: white;">Email:</label>
+            <input type="email" id="email" name="email" required style="width: 100%; padding: 10px; margin-bottom: 10px; border: 2px solid #f41f4e; border-radius: 5px;"><br><br>
+
+            <label for="phoneNumber" style="color: white;">Phone Number:</label>
+            <input type="tel" id="phoneNumber" name="phoneNumber" required style="width: 100%; padding: 10px; margin-bottom: 10px; border: 2px solid #f41f4e; border-radius: 5px;" placeholder="*27 XXXXXXXXXX"><br><br>
+
+            <input type="submit" id="btn" value="Add" style="background-color: #ffc2c7; color: black; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">
+        </form>
+    </div>
+    <br />
+    <br />
+    <h2>Stored Profiles:</h2>
+    <br />
+    <br />
+
+    <div id="profileTableContainer">
+        <table id="profileTable">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                </tr>
+            </thead>
+            <tbody id="profileList">
+                <!-- List of stored profiles will be displayed here -->
+            </tbody>
+        </table>
+    </div>
+
+
+    <script>
+        // Get the form elements
+        const FnameInput = document.getElementById('firstName');
+        const LnameInput = document.getElementById('lastName');
+        const EmailInput = document.getElementById('email');
+        const PhoneInput = document.getElementById('phoneNumber');
+        const createProfileButton = document.getElementById('btn');
+        const profileTableBody = document.getElementById('profileList');
+
+        // Create a new profile when the button is clicked
+        createProfileButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            const firstName = FnameInput.value;
+            const lastName = LnameInput.value;
+            const email = EmailInput.value;
+            const phoneNumber = PhoneInput.value;
+
+            // Create a new table row for the profile
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                            <td>${firstName}</td>
+                            <td>${lastName}</td>
+                            <td>${email}</td>
+                            <td>${phoneNumber}</td>
+                        `;
+            profileTableBody.appendChild(newRow);
+
+            // Clear the form inputs
+            FnameInput.value = '';
+            LnameInput.value = '';
+            EmailInput.value = '';
+            PhoneInput.value = '';
+        });
+
+        function showAlert(event) {
+            event.preventDefault(); // Prevent the form from submitting immediately
+            alert('Customer added successfully!'); // Show the popup message
+            event.target.submit(); // Submit the form after showing the alert
+        }
+
+    </script>
+</body>
+</html>
